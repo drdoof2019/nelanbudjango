@@ -40,27 +40,42 @@
 # print('Your post is published on ' + json.loads(r.content)['link'])
 
 import requests
+from requests.auth import HTTPBasicAuth
+import json
 
 # Set the WordPress credentials and URL
-url = 'https://suleatac.com/wp-json/wp/v2/posts'
-username = 'admin'
-password = '994b 8XAb kXSt Z96f V1rM AmdD'
-
-# Set the post data
-post_data = {
-    'title': 'My new post',
-    'content': 'This is my new post content.',
-    'status': 'publish',
-}
+url = 'https://suleatac.com/wp-json/wp/v2/'
+username = 'onur'
+password = 'iU09 Y0h2 kt00 7szx 3qOS ZcE9'
 
 # Set the authentication headers
 headers = {
-    'Authorization': f'Application Password {username}:{password}',
+    # 'Authorization': f'Application Password {username}:{password}',
     'Content-Type': 'application/json',
 }
 
+
+# media = {
+#     'file' : open('cag_kebap.jpg', 'rb'),
+#     'caption' : "Cağ Kebap",
+#     'description' : "Cağ Kebabı resmi"
+# }
+# print(url)
+# image = requests.post(url + 'media', auth = HTTPBasicAuth(username, password), 
+#                       headers=headers, files=media)
+
+
+# Set the post data
+post_data = {
+    'title': 'First api post without image',
+    'content': 'This is my new post content. <br> <p>Şuliş Seni Seviyorum</p><br><h1>Merhaba Dünya!</h1>',
+    'status': 'publish',
+}
+
+
 # Create the post
-response = requests.post(url, headers=headers, json=post_data)
+response = requests.post(url + 'posts', auth = HTTPBasicAuth(username, password), 
+                         headers=headers, json=post_data)
 
 # Print the response status code and text
 print(f'Response status code: {response.status_code}')
